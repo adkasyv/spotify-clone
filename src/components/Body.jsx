@@ -28,28 +28,23 @@ export default function Body() {
           ? ""
           : response.data.description,
         image: response.data.images[0].url,
-        // tracks: response.data.tracks.items.map(
-        // ({ track }) => ({ track: track.id })
-        // track: track.map((track) => track)
-        // ),
-        tracks: response.data.tracks.items.map((track) => {
-          track: track;
-        }),
-        // tracks: response.data.tracks.items.map(({ track }) => ({
-        //   id: track.id,
-        //   name: track.name,
-        //   artists: track.artists.map((artist) => artist.name),
-        //   image: track.album.images[2].url,
-        //   duration: track.duration_ms,
-        //   album: track.album.name,
-        //   context_uri: track.album.uri,
-        //   track_number: track.track_number,
-        // })),
+        tracks: response.data.tracks.items.map(
+          ({ track }) =>
+            track && {
+              id: track.id,
+              name: track.name,
+              artists: track.artists.map((artist) => artist.name),
+              image: track.album.images[2].url,
+              duration: track.duration_ms,
+              album: track.album.name,
+              context_uri: track.album.uri,
+              track_number: track.track_number,
+            }
+        ),
       };
 
       dispatch({ type: reducerCases.SET_PLAYLIST, selectedPlaylist });
-      console.log(selectedPlaylist, "selectedPlaylist");
-      console.log(response.data, "data");
+      console.log("selectedPlaylist", selectedPlaylist);
     };
     getInitialPlaylist();
   }, [token, dispatch, selectedPlaylistId]);
@@ -84,7 +79,7 @@ export default function Body() {
             </div>
           </div>
 
-          {/* <div className="tracks">
+          <div className="tracks">
             {selectedPlaylist.tracks.map(
               (
                 {
@@ -124,11 +119,16 @@ export default function Body() {
                 );
               }
             )}
-          </div> */}
+          </div>
         </>
       )}
     </Container>
   );
 }
 
-const Container = styled.div``;
+const Container = styled.div`
+  body {
+    overflow: auto;
+    // /* или overflow scroll */
+  }
+`;
