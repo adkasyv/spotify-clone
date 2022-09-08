@@ -34,6 +34,12 @@ const reducer = (state, action) => {
         selectedPlaylist: action.selectedPlaylist,
       };
     }
+    case reducerCases.SET_PLAYING: {
+      return {
+        ...state,
+        selectedPlaying: action.currentlyPlaying,
+      };
+    }
     default:
       return state;
   }

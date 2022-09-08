@@ -5,7 +5,7 @@ import { reducerCases } from "../utils/Constants";
 import { useStateProvider } from "../utils/StateProvider";
 import axios from "axios";
 
-export default function Body() {
+export default function Body({ headerBackground }) {
   const [{ token, selectedPlaylistId, selectedPlaylist }, dispatch] =
     useStateProvider();
 
@@ -49,15 +49,26 @@ export default function Body() {
     getInitialPlaylist();
   }, [token, dispatch, selectedPlaylistId]);
 
+  //функция пересчета миллисекунд в секунды
+  const msToMinutesAndSecons = (ms) => {
+    const minutes = Math.floor(ms / 60000);
+    const seconds = ((ms % 60000) / 1000).toFixed(0);
+    return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+  };
+
   return (
-    <Container>
+    <Container headerBackground={headerBackground}>
       {selectedPlaylist && (
         <>
           <div className="playlist">
-            <img src={selectedPlaylist.image} alt="selectedPlaylist" />
-            <span className="type">PLAYLIST</span>
-            <h1 className="title">{selectedPlaylist.name}</h1>
-            <p className="description">{selectedPlaylist.description}</p>
+            <div className="image">
+              <img src={selectedPlaylist.image} alt="selectedPlaylist" />
+            </div>
+            <div className="details">
+              <span className="type">PLAYLIST</span>
+              <h1 className="title">{selectedPlaylist.name}</h1>
+              <p className="description">{selectedPlaylist.description}</p>
+            </div>
           </div>
 
           <div className="list">
@@ -113,7 +124,7 @@ export default function Body() {
                       <span>{album}</span>
                     </div>
                     <div className="col">
-                      <span>{duration}</span>
+                      <span>{msToMinutesAndSecons(duration)}</span>
                     </div>
                   </div>
                 );
@@ -127,8 +138,72 @@ export default function Body() {
 }
 
 const Container = styled.div`
-  body {
-    overflow: auto;
-    // /* или overflow scroll */
+  .playlist {
+    margin: 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    .image {
+      img {
+        height: 15rem;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+      }
+    }
+    .details {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      color: #e0dede;
+      .title {
+        color: white;
+        font-size: 4rem;
+      }
+    }
+  }
+
+  .list {
+    .header__row {
+      display: grid;
+      grid-template-columns: 0.3fr 3fr 2fr 0.1fr;
+      margin: 1rem 0 0 0;
+      color: #dddcdc;
+      position: sticky;
+      top: 15vh;
+      padding: 1rem 3rem;
+      transition: 0.3s ease-in-out;
+      background-color: ${({ headerBackground }) =>
+        headerBackground ? "#000000dc" : "none"};
+    }
+  }
+
+  .tracks {
+    margin: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5rem;
+    .row {
+      padding: 0.5rem 1rem;
+      display: grid;
+      grid-template-columns: 0.3fr 3.1fr 1.8fr 0.1fr;
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.7);
+      }
+      .col {
+        display: flex;
+        align-items: center;
+        color: #dddccc;
+        img {
+          height: 40px;
+        }
+      }
+      .detail {
+        display: flex;
+        gap: 1rem;
+        .info {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    }
   }
 `;
