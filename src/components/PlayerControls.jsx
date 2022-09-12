@@ -16,7 +16,7 @@ export default function PlayerControls() {
 
   const changeState = async () => {
     const state = playerState ? "pause" : "play";
-    const response = await axios.put(
+    await axios.put(
       `https://api.spotify.com/v1/me/player/${state}`,
       {},
       {

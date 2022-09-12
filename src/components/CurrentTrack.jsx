@@ -26,14 +26,13 @@ export default function CurrentTrack() {
           artists: item.artists.map((artists) => artists.name),
           image: item.album.images[2].url,
         };
-        console.log(currentPlaying);
-
         dispatch({ type: reducerCases.SET_PLAYING, currentPlaying });
+      } else {
+        dispatch({ type: reducerCases.SET_PLAYING, currentPlaying: null });
+        alert(
+          "For correct work, please open the official spotify website and play the track"
+        );
       }
-
-      // else {
-      //   dispatch({ type: reducerCases.SET_PLAYING, currentPlaying: null });
-      // }
     };
     getCurrentTrack();
   }, [token, dispatch]);
