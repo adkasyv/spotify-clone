@@ -44,7 +44,7 @@ export default function Body({ headerBackground }) {
       };
 
       dispatch({ type: reducerCases.SET_PLAYLIST, selectedPlaylist });
-      console.log("selectedPlaylist", selectedPlaylist);
+      // console.log("selectedPlaylist", selectedPlaylist);
     };
     getInitialPlaylist();
   }, [token, dispatch, selectedPlaylistId]);

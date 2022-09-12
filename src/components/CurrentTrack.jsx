@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import styled from "styled-components";
 import { useStateProvider } from "../utils/StateProvider";
-import axios from "axios";
 import { reducerCases } from "../utils/Constants";
+import styled from "styled-components";
+import axios from "axios";
 
 export default function CurrentTrack() {
-  const [{ token, currentlyPlaying }, dispatch] = useStateProvider(); //госуд-й провайдер
+  const [{ token, currentPlaying }, dispatch] = useStateProvider(); //госуд-й провайдер
   // ниже вызов API
   useEffect(() => {
     const getCurrentTrack = async () => {
@@ -18,31 +18,36 @@ export default function CurrentTrack() {
           },
         }
       );
-      console.log(response);
       if (response.data !== "") {
         const { item } = response.data;
-        const currentlyPlaying = {
+        const currentPlaying = {
           id: item.id,
           name: item.name,
           artists: item.artists.map((artists) => artists.name),
           image: item.album.images[2].url,
         };
+        console.log(currentPlaying);
+
+        dispatch({ type: reducerCases.SET_PLAYING, currentPlaying });
       }
-      dispatch({ type: reducerCases.SET_PLAYING, currentlyPlaying });
+
+      // else {
+      //   dispatch({ type: reducerCases.SET_PLAYING, currentPlaying: null });
+      // }
     };
     getCurrentTrack();
   }, [token, dispatch]);
 
   return (
     <Container>
-      {currentlyPlaying && (
+      {currentPlaying && (
         <div className="track">
           <div className="track__image">
-            <img src={currentlyPlaying.image} alt="currentlyPlaying" />
+            <img src={currentPlaying.image} alt="currentPlaying" />
           </div>
           <div className="track__info">
-            <h4>{currentlyPlaying.name}</h4>
-            <h6>{currentlyPlaying.artists.joun(", ")}</h6>
+            <h4>{currentPlaying.name}</h4>
+            <h6>{currentPlaying.artists.join(", ")}</h6>
           </div>
         </div>
       )}
@@ -51,13 +56,20 @@ export default function CurrentTrack() {
 }
 
 const Container = styled.div`
-  background-color: #181818;
-  height: 100%;
-  width: 100%;
-  border-top: 1px solid #282828;
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  align-items: center;
-  justify-content: center;
-  padding: 0 1rem;
+  .track {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    &__info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      h4 {
+        color: white;
+      }
+      h6 {
+        color: #b3b3b3;
+      }
+    }
+  }
 `;

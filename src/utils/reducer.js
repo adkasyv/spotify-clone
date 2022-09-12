@@ -3,9 +3,11 @@ import { reducerCases } from "./Constants";
 export const initailState = {
   token: null,
   playlists: [],
+  currentPlaying: null,
   userInfo: null,
   selectedPlaylistId: "5rU1wsgLZDuCnOfciudbm1",
   selectedPlaylist: null,
+  playerState: false,
 };
 
 const reducer = (state, action) => {
@@ -37,7 +39,13 @@ const reducer = (state, action) => {
     case reducerCases.SET_PLAYING: {
       return {
         ...state,
-        selectedPlaying: action.currentlyPlaying,
+        currentPlaying: action.currentPlaying,
+      };
+    }
+    case reducerCases.SET_PLAYER_STATE: {
+      return {
+        ...state,
+        playerState: action.playerState,
       };
     }
     default:
