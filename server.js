@@ -30,6 +30,7 @@ const favicon = require("express-favicon");
 const path = require("path");
 const port = process.env.PORT || "3002";
 const app = express();
+app.set("port", port);
 app.use(favicon(__dirname + "/build/favicon.ico"));
 // the __dirname is the current directory from where the script is running
 app.use(express.static(__dirname));
@@ -41,4 +42,3 @@ app.get("/*", function (req, res) {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 app.listen(port);
-app.set("port", port);
