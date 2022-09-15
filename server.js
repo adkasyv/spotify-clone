@@ -28,7 +28,7 @@
 const express = require("express");
 // const favicon = require("express-favicon");
 const path = require("path");
-const port = process.env.PORT || "3002";
+const port = process.env.PORT || 3002;
 const app = express();
 app.set("port", port);
 // app.use(favicon(__dirname + "/build/favicon.ico"));
