@@ -1,7 +1,9 @@
 const express = require("express");
 // const favicon = require('express-favicon');
 const path = require("path");
-const port = process.env.PORT || 3002;
+// const port = process.env.PORT || 3002;
+const port =
+  process.env.PORT || "https://adkasyv-spotify-deploy.herokuapp.com/";
 
 // здесь у нас происходит импорт пакетов и определяется порт нашего сервера
 const app = express();
