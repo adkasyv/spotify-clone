@@ -4,7 +4,7 @@ import styled from "styled-components";
 export default function Login() {
   const handleClick = () => {
     const client_id = "1157379925c24c38bff0b9d2d721c0fb"; //spotify for development id
-    const redirect_uri = "http://localhost:3002/";
+    const redirect_uri = "https://adkasyv-spotify-deploy.herokuapp.com/"; //"http://localhost:3002/";
     // const redirect_uri = "https://adkasyv-spotify-deploy.herokuapp.com/";
     // const redirect_uri = "http://adkasyv-spotify-deploy.herokuapp.com/";
     const api_uri = "https://accounts.spotify.com/authorize";
