@@ -13,6 +13,12 @@ const app = express();
 app.use(express.static(__dirname));
 app.use(express.static(path.join(__dirname, "build")));
 
+app.set("port", process.env.PORT || 3002);
+// Express only serves static assets in production
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
+
 //простой тест сервера
 app.get("/ping", function (req, res) {
   return res.send("pong");
