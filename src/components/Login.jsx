@@ -17,7 +17,8 @@ export default function Login() {
       "user-read-recently-played",
       "user-top-read",
     ];
-    window.location.href = `${api_uri}?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scope.join(
+    // window.location.href = `${api_uri}?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scope.join(
+    window.location.href = `${api_uri}?client_id=${client_id}&scope=${scope.join(
       " "
     )}&response_type=token&show_dialog=true`;
     //*получаем жетон
