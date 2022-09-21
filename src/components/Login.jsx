@@ -6,7 +6,6 @@ export default function Login() {
     const client_id = "1157379925c24c38bff0b9d2d721c0fb"; //spotify for development id
     const redirect_uri = "http://localhost:3002/";
     // const redirect_uri = "https://adkasyv-spotify-deploy.herokuapp.com/";
-    // const redirect_uri = "http://adkasyv-spotify-deploy.herokuapp.com/";
     const api_uri = "https://accounts.spotify.com/authorize";
     const scope = [
       "user-read-private",
@@ -17,7 +16,6 @@ export default function Login() {
       "user-read-recently-played",
       "user-top-read",
     ];
-    // window.location.href = `${api_uri}?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scope.join(
     window.location.href = `${api_uri}?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scope.join(
       " "
     )}&response_type=token&show_dialog=true`;
